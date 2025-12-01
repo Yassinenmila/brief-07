@@ -1,13 +1,9 @@
 <?php 
 include_once __DIR__ . "/assets/library.php";
-$page= $_GET['page'] ?? 'home';
 
-$pages=['home','contact','about','services'];
+$pages=['about','contact','home','services'];
 
-if(!in_array($page,$pages)){
-    $page='home';
-}
-
+$page=page_manipul($pages,'home');
 
  include __DIR__ .'/templates/layout.php';
 
