@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . "/../process/contact.php" ?>
+
 <section class="container mx-auto py-16">
     <?php if (isset($_SESSION['toast'])): ?>
     <div id="toast" class="fixed bg-gray-800 text-white px-5 py-3 rounded-lg shadow-lg z-50">

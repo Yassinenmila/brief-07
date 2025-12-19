@@ -12,3 +12,4 @@ if (empty($nom) || empty($email) || empty($desc)) {
     $_SESSION['toast'] ="Message envoyer avec succes !!";
 }
 ?>
+<?php require_once __DIR__ . "/../views/contact.views.php" ?>

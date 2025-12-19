@@ -1,4 +1,4 @@
-<?php require_once __DIR__."/../process/about.php"?>
+
 <section class="container mx-auto py-16">
     <h2 class="text-3xl font-bold mb-6 text-center">À propos de nous</h2>
     <p class="text-gray-700 text-lg leading-8 text-center max-w-3xl mx-auto">

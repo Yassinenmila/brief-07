@@ -6,7 +6,7 @@
     <title>Digitalwave - <?=$page?> </title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 
     <?php require_once __DIR__ .'/header.php';?>
   
