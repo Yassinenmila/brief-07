@@ -2,6 +2,8 @@
 
 session_start();
 
+require_once __DIR__. "/data/SGBD.php";
+
 require_once __DIR__ . "/assets/library.php";
 
 $data= json_decode(file_get_contents(__DIR__."/data/data_service.json"));
