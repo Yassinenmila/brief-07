@@ -1,0 +1,12 @@
+<!-- <?php if (isset($_SESSION['toast'])): ?>
+    <div id="toast" class="fixed bg-gray-800 text-white px-5 py-3 rounded-lg shadow-lg z-50">
+        <?= $_SESSION['toast'] ?>
+    </div>
+    <script>
+        setTimeout(() => {
+            const toast = document.querySelector("#toast");
+            if (toast) toast.remove();
+        }, 3000);
+    </script>
+    <?php unset($_SESSION['toast']); ?>
+<?php endif; ?> -->

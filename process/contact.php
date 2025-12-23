@@ -1,15 +1,28 @@
 <?php
-$header="nmilayassine0000@gmail.com";
-$nom = $_POST['nom'] ?? "";
-$email = $_POST['email'] ?? "";
-$desc = $_POST['desc'] ?? "";
+include __DIR__ . '/data/SGBD.php';
 
-if (empty($nom) || empty($email) || empty($desc)) {
-    $_SESSION['toast']="veuiller remplir tout les champs !!";
-} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['toast'] ="veuiller saisir un email valide !!";
-} else {
-    $_SESSION['toast'] ="Message envoyer avec succes !!";
+if (isset($_POST['submit'])) {
+
+    $nom   = $_POST['nom'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $desc  = $_POST['desc'] ?? '';
+
+    if (empty($nom) || empty($email) || empty($desc)) {
+        $_SESSION['toast'] = "Veuillez remplir tous les champs !!";
+    }
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['toast'] = "Veuillez saisir un email valide !!";
+    }
+    else {
+        $sql = $conn->prepare(
+            "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
+        );
+        $sql->bind_param("sss", $nom, $email, $desc);
+        $sql->execute();
+
+        $_SESSION['toast'] = "Message envoyé avec succès !!";
+    }
 }
 ?>
-<?php require_once __DIR__ . "/../views/contact.views.php" ?>
+
+<?php require_once __DIR__ . '/../views/contact.views.php'; ?>

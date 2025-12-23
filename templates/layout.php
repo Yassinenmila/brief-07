@@ -6,11 +6,11 @@
     <title>Digitalwave - <?=$page?> </title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex flex-col">
-
+<body class="bg-gray-100 min-h-screen h-full flex flex-col">
+  
     <?php require_once __DIR__ .'/header.php';?>
   
-    <?php  require_once __DIR__ .'/../views/'.$page.'.views.php';?>
+    <?php  require_once __DIR__ .'/../process/'.$page.'.php';?>
 
     <?php  require_once __DIR__.'/footer.php'; ?>
    

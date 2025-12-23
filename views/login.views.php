@@ -1,3 +1,4 @@
+<section class="flex flex-col justify-center items-center h-[80vh] ">
 <div class="bg-white absolut inset-0 p-8 rounded-xl shadow-lg w-full max-w-md">  
         <h2 class="text-2xl font-bold text-center text-gray-800 mb-6"> Se connecter sur votre compte</h2>
         <form action="login.php" method="POST" class="flex flex-col gap-4">
@@ -12,3 +13,4 @@
             <button type="submit" class="mt-4 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"> S'inscrire </button>
         </form>
     </div>
+</section>
