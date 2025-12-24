@@ -1,28 +1,26 @@
 <?php
-include __DIR__ . '/data/SGBD.php';
 
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sub_cont'])) {
 
     $nom   = $_POST['nom'] ?? '';
     $email = $_POST['email'] ?? '';
     $desc  = $_POST['desc'] ?? '';
 
-    if (empty($nom) || empty($email) || empty($desc)) {
-        $_SESSION['toast'] = "Veuillez remplir tous les champs !!";
-    }
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $_SESSION['toast'] = "Veuillez saisir un email valide !!";
-    }
-    else {
-        $sql = $conn->prepare(
-            "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
-        );
-        $sql->bind_param("sss", $nom, $email, $desc);
-        $sql->execute();
+    $stmt = $conn->prepare(
+        "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
+    );
 
-        $_SESSION['toast'] = "Message envoyé avec succès !!";
+    if (!$stmt) {
+        die("Erreur SQL : " . $conn->error);
+    }
+
+    $stmt->bind_param("sss", $nom, $email, $desc);
+
+    if ($stmt->execute()) {
+        echo "Message envoyé avec succès !!";
+    } else {
+        echo "Erreur lors de l'envoi !!";
     }
 }
-?>
 
-<?php require_once __DIR__ . '/../views/contact.views.php'; ?>
+require_once __DIR__ . '/../views/contact.views.php';

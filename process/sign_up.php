@@ -1,41 +1,48 @@
 <?php 
 
-if(isset($_POST['submit'])){
-    $username= $_POST['name'];
-    $email=$_POST['email'];
-    $pass=$_POST['password'];
-    $conf=$_POST['conf'];
+if(isset($_POST['sub_sign']) && $_SERVER['REQUEST_METHOD']==='POST'){
+    $username= $_POST['name']?? '';
+    $email=$_POST['email'] ?? '';
+    $pass=$_POST['password'] ?? '';
+    $conf=$_POST['conf'] ?? '';
 
-    if($password!==$conf){
-        $message="mots de pass incorrect !!!";
+    if ($pass !== $conf) {
+        echo "Les mots de passe ne correspondent pas !";
         exit;
     }
 
-    $sql="SELECT * FROM users WHERE name= ?";
-    $stmt=mysqli_prepare($conn, $sql);
-    mysqli_stmt_bind_param($stmt,"s",$userame);
-    mysqli_stmt_execute($stmt);
-    $result=mysqli_stmt_get_result($stmt);
-
-    if(mysqli_num_rows($result)>0){
-        $message="nom d'utilisateur deja utiliser.";
-        exit;
+    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    if (!$stmt) {
+        die("Erreur SQL : " . $conn->error);
     }
 
-    $pwd= password_hash($password,PASSWORD_DEFAULT);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    $sql="INSERT INTO users (name ,email,password) VALUES (?,?,?)";
-    $stmt=mysqli_prepare($conn,$sql);
-    mysqli_stmt_bind_param($stmt,"sss",$username,$email,$pwd);
-
-    if(mysqli_stmt_execute($stmt)){
-        $message="inscription reussit !!";
-    }else{
-        $message="ERROR :". mysql_error($conn);
+    if ($result->num_rows > 0) {
+        echo "utilisateur deja inscrit !!";
     }
 
-    header("location: login.php");
-    exit;
+    // Hash du mot de passe
+    $hashed = password_hash($pass, PASSWORD_DEFAULT);
+
+    // Insertion
+    $stmt = $conn->prepare(
+        "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
+    );
+
+    if (!$stmt) {
+        die("Erreur SQL : " . $conn->error);
+    }
+
+    $stmt->bind_param("sss", $username, $email, $hashed);
+
+    if ($stmt->execute()) {
+        header("Location: /login.php");
+    } else {
+        echo "Erreur lors de l'inscription : " . $stmt->error;
+    }
 }
 
 ?>
