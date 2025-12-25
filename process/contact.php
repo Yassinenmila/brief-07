@@ -1,14 +1,26 @@
 <?php
-$header="nmilayassine0000@gmail.com";
-$nom = $_POST['nom'] ?? "";
-$email = $_POST['email'] ?? "";
-$desc = $_POST['desc'] ?? "";
 
-if (empty($nom) || empty($email) || empty($desc)) {
-    $_SESSION['toast']="veuiller remplir tout les champs !!";
-} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $_SESSION['toast'] ="veuiller saisir un email valide !!";
-} else {
-    $_SESSION['toast'] ="Message envoyer avec succes !!";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sub_cont'])) {
+
+    $nom   = $_POST['nom'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $desc  = $_POST['desc'] ?? '';
+
+    $stmt = $conn->prepare(
+        "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)"
+    );
+
+    if (!$stmt) {
+        die("Erreur SQL : " . $conn->error);
+    }
+
+    $stmt->bind_param("sss", $nom, $email, $desc);
+
+    if ($stmt->execute()) {
+        echo "Message envoyé avec succès !!";
+    } else {
+        echo "Erreur lors de l'envoi !!";
+    }
 }
-?>
+
+require_once __DIR__ . '/../views/contact.views.php';

@@ -7,9 +7,14 @@
                 <li><a href="/about" class="hover:text-blue-600">À propos</a></li>
                 <li><a href="/contact" class="hover:text-blue-600">Contact</a></li>
             </ul>
+            <?php if(isset($_SESSION['user_id'])): ?>
+                <a href="/profil" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">profil</a>
+                <a href="/sign_up" class="px-6 py-3 bg-red text-white font-medium rounded-lg hover:bg-red-700">Se deconnecter</a>
+            <?php else:  ?>
             <div>
                 <a href="/login" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">Se connecter</a>
                 <a href="/sign_up" class="px-6 py-3 bg-white text-black font-medium rounded-lg hover:bg-blue-700">S'inscrire</a>
             </div>
+            <?php endif; ?>
         </nav>
     </header>
