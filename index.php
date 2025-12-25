@@ -9,7 +9,7 @@ $data= json_decode(file_get_contents(__DIR__."/data/data_service.json"));
 
 $pages=['about','contact','home','services','login','sign_up','profil'];
  
-$page=trim($_SERVER['REQUEST_URI'],  '/');
+$page=$_SERVER['REQUEST_URI'];
 
 $page=$page?:'home';
 
